@@ -4,13 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useParams } from "react-router-dom";
 
 /*Import des pages et composants*/
 import "./App.css";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Personnages from "./pages/Personnages";
-import FichePersonnage from "./pages/FichePersonnage";
+import Comics from "./pages/Comics";
+import ComicsByCharacter from "./pages/ComicsByCharacter";
+
+// import FichePersonnage from "./pages/FichePersonnage";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,13 +42,30 @@ function App() {
           }
         />
         <Route
-          path="/character/:characterId"
+          path="/comics"
           element={
-            <FichePersonnage
-              data={data}
-              setData={setData}
+            <Comics
+              page={page}
+              setPage={setPage}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              data={data}
+              setData={setData}
+              limit={100}
+            />
+          }
+        />
+        <Route
+          path="/comics/:characterId"
+          element={
+            <ComicsByCharacter
+              page={page}
+              setPage={setPage}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              data={data}
+              setData={setData}
+              limit={100}
             />
           }
         />

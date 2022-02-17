@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-/*Personnages*/
+/*Personnages page*/
 
 .characters-page-container {
   margin: 0 200px;
@@ -39,6 +39,25 @@
 }
 
 .unique-character img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Comics page */
+
+.comics-page-container {
+  margin: 0 200px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.unique-comic {
+  width: 150px;
+  flex: 1;
+}
+
+.unique-comic img {
   width: 150px;
   height: 150px;
   object-fit: cover;
