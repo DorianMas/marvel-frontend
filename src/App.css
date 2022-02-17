@@ -1,1 +1,45 @@
 /* Other rules */
+
+/*Header*/
+.header-container {
+  margin: 0 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+}
+
+.logo-container img {
+  height: 40px;
+}
+
+.navigation-buttons {
+  background-color: rgb(237, 29, 36);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.navigation-buttons:hover {
+  cursor: pointer;
+}
+
+/*Personnages*/
+
+.characters-page-container {
+  margin: 0 200px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.unique-character {
+  width: 150px;
+  flex: 1;
+}
+
+.unique-character img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
