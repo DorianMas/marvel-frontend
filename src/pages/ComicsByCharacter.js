@@ -1,39 +1,47 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import axios from "axios";
+// import { useState, useEffect } from "react";
+// import { useParams } from "react-router-dom";
 
-const ComicsByCharacter = (props) => {
-  const { data, setData, isLoading, setIsLoading } = props;
+// const ComicsByCharacter = () => {
+//   const [isLoading, setIsLoading] = useState(true);
 
-  const { characterId } = useParams();
-  console.log("Id du personnage =>", characterId);
+//   const [data, setData] = useState();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        `http://localhost:4000/comics/${characterId}`
-      );
-      console.log("Réponse du back =>", response.data);
-      setData(response.data);
-      setIsLoading(false);
-    };
-    fetchData();
-    console.log("Effect executed");
-  }, [characterId]);
+//   const { characterId } = useParams();
+//   console.log("Id du personnage =>", characterId);
 
-  return isLoading ? (
-    <div>En cours de rechargement...</div>
-  ) : (
-    <div className="comics-page-container">
-      {data.results.map((comic) => {
-        return (
-          <div className="unique-comic">
-            <img src={comic.thumbnail.path + "." + comic.thumbnail.extension} />
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const response = await axios.get(
+//         `http://localhost:4000/comics/${characterId}`
+//       );
+//       console.log("Réponse du back =>", response.data);
+//       setData(response.data);
+//       //   setIsLoading(false);
+//       console.log(characterId);
+//     };
+//     fetchData();
+//     console.log("Effect executed");
+//   }, [characterId]);
 
-export default ComicsByCharacter;
+//   return isLoading ? (
+//     <div>En cours de rechargement...</div>
+//   ) : (
+//     <div className="comics-page-container">
+//       <div className="profile">
+//         <img
+//           src={
+//             data.results.thumbnail.path + "." + data.results.thumbnail.extension
+//           }
+//         />
+//       </div>
+//       {data.results.comics.map((comic) => {
+//         return;
+
+//         <img src={comic.comics} />;
+//       })}
+//     </div>
+//   );
+// };
+
+// export default ComicsByCharacter;
