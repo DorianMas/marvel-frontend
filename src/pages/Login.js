@@ -33,7 +33,7 @@ const Login = (props) => {
       event.preventDefault();
       const response = await axios.post(
         // "http://localhost:4000/user/login"
-        "https://marvel-app-backend-dm.herokuapp.com//user/login",
+        "https://marvel-app-backend-dm.herokuapp.com/user/login",
         {
           email: email,
           password: password,
