@@ -18,7 +18,8 @@ const Personnages = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        `http://localhost:4000/characters?limit=${limit}&page=${page}&name=${searchTerm}`
+        `https://marvel-app-backend-dm.herokuapp.com/characters?limit=${limit}&page=${page}&name=${searchTerm}`
+        // `http://localhost:4000/characters?limit=${limit}&page=${page}&name=${searchTerm}`
       );
       console.log(response.data);
       setData(response.data);

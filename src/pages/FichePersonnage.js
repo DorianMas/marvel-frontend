@@ -16,7 +16,8 @@ const FichePersonnage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        `http://localhost:4000/comics/${characterId}`
+        `https://marvel-app-backend-dm.herokuapp.com/${characterId}`
+        // `http://localhost:4000/comics/${characterId}`
       );
       console.log("Réponse de la BBD =>", response.data);
       setData(response.data);

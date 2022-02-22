@@ -39,7 +39,7 @@ const Signup = () => {
       if (password === confirmPassword) {
         try {
           const response = await axios.post(
-            "http://localhost:4000/user/signup",
+            "https://marvel-app-backend-dm.herokuapp.com/user/signup",
             {
               // email: email,
               email,

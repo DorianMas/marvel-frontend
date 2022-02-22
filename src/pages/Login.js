@@ -31,10 +31,14 @@ const Login = (props) => {
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      const response = await axios.post("http://localhost:4000/user/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        // "http://localhost:4000/user/login"
+        "https://marvel-app-backend-dm.herokuapp.com//user/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
 
       console.log(response.data);
 

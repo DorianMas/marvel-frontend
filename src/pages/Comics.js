@@ -17,7 +17,8 @@ const Comics = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        `http://localhost:4000/comics?limit=${limit}&page=${page}&title=${searchTerm}`
+        `https://marvel-app-backend-dm.herokuapp.com/comics?limit=${limit}&page=${page}&title=${searchTerm}`
+        // `http://localhost:4000/comics?limit=${limit}&page=${page}&title=${searchTerm}`
       );
       console.log(response.data);
       setData(response.data);
