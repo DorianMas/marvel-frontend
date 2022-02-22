@@ -14,7 +14,6 @@ import Footer from "./components/Footer";
 
 import Personnages from "./pages/Personnages";
 import Comics from "./pages/Comics";
-import ComicsByCharacter from "./pages/ComicsByCharacter";
 import FichePersonnage from "./pages/FichePersonnage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -68,19 +67,6 @@ function App() {
           path="/comics"
           element={<Comics limit={100} tokenUser={tokenUser} token={token} />}
         />
-        {/* <Route
-          path="/comics/:characterId"
-          element={
-            <ComicsByCharacter
-              page={page}
-              setPage={setPage}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              data={data}
-              setData={setData}
-              limit={100}
-            /> */}
-        {/* } /> */}
         <Route
           path="/user/signup"
           element={<Signup tokenUser={tokenUser} token={token} />}
