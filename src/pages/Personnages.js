@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import FavoriteButton from "../assets/favorite-svgrepo-com.svg";
 
@@ -14,6 +15,42 @@ const Personnages = (props) => {
   const [page, setPage] = useState(1);
 
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [characterId, setCharacterId] = useState();
+
+  const [newFav, setNewFav] = useState();
+
+  // const favCharacter = (characterId) => {
+  //     localStorage.setItem("favCharacterId", characterId);
+  //   setCharacterId(characterId);
+
+  // };
+
+  // const FavCharacter = (characterId) => {
+  //   if (characterId)
+  //   { if
+  //     localStorage.setItem("favCharacterId", characterId);
+  //   } else {
+  //     Cookies.remove("favCharacterId");
+  //   }
+  //   setCharacterId(characterId);
+  // };
+
+  // const addToLocalStorage = (character) => {
+  //   localStorage.setItem("favCharacterId", characterId);
+  //   setCharacterId(characterId);
+  //   const newFav = [...characterId];
+
+  //   const exist = newFav.find((elem) => elem.id === character._id);
+  //   console.log("L'élément trouvé ====> ", exist);
+  //   if (exist) {
+  //     alert("You already added this character to your favorites");
+  //   } else {
+  //     newFav.push(character);
+  //   }
+
+  //   setCharacterId(newFav);
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +95,9 @@ const Personnages = (props) => {
         >
           Previous
         </button>
-        <div>{page}</div>
+        <div>
+          {page} - {limit}
+        </div>
         <button onClick={() => setPage(page + 1)}>Next</button>
       </div>
       <div className="characters-results-container">
@@ -76,9 +115,22 @@ const Personnages = (props) => {
                   />
                 </div>
               </Link>
+              <div>
+                <img
+                  src={FavoriteButton}
+                  className="favorite-button"
+                  data-hover="Add the character to your favorites"
+                  onClick={
+                    () =>
+                      // FavCharacter(character._id);
+                      localStorage.setItem("favCharacterId", character._id)
+                    // console.log("Ajout d'un favori ==> ", characterId);
+                    // addToLocalStorage
+                  }
+                />
+              </div>
               <div className="name-and-favorite-button">
                 <h3 className="character-name"> {character.name} </h3>
-                <img src={FavoriteButton} className="favorite-button" />
               </div>
               <div className="character-description">
                 {character.description}

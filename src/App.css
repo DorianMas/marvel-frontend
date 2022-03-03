@@ -428,17 +428,50 @@ a {
   gap: 5px;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+}
+
+.favorite-button:hover {
+  cursor: pointer;
+}
+
+.favorite-button:before {
+  content: attr(data-hover);
+  visibility: hidden;
+  opacity: 0;
+  width: 200px;
+  background-color: rgb(237, 29, 36);
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 20px;
+  transition: opacity 1s ease-in-out;
+  font-family: "Marvel", sans-serif;
+  text-align: center;
+}
+
+.favorite-button:hover:before {
+  opacity: 1;
+  visibility: visible;
+  z-index: 0;
 }
 
 .character-name {
   font-family: "Bangers", cursive;
-  transform: rotate(-2deg);
+  transform: rotate(-1.5deg);
 }
 .character-description {
-  transform: rotate(-2deg);
+  transform: rotate(-1.5deg);
   font-family: "Marvel", sans-serif;
   overflow: hidden;
   padding-bottom: 2px;
+  text-align: center;
 }
 
 /* Comics page */
