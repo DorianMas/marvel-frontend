@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -16,41 +18,7 @@ const Personnages = (props) => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [characterId, setCharacterId] = useState();
-
-  const [newFav, setNewFav] = useState();
-
-  // const favCharacter = (characterId) => {
-  //     localStorage.setItem("favCharacterId", characterId);
-  //   setCharacterId(characterId);
-
-  // };
-
-  // const FavCharacter = (characterId) => {
-  //   if (characterId)
-  //   { if
-  //     localStorage.setItem("favCharacterId", characterId);
-  //   } else {
-  //     Cookies.remove("favCharacterId");
-  //   }
-  //   setCharacterId(characterId);
-  // };
-
-  // const addToLocalStorage = (character) => {
-  //   localStorage.setItem("favCharacterId", characterId);
-  //   setCharacterId(characterId);
-  //   const newFav = [...characterId];
-
-  //   const exist = newFav.find((elem) => elem.id === character._id);
-  //   console.log("L'élément trouvé ====> ", exist);
-  //   if (exist) {
-  //     alert("You already added this character to your favorites");
-  //   } else {
-  //     newFav.push(character);
-  //   }
-
-  //   setCharacterId(newFav);
-  // };
+  const [fav, setFav] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,14 +26,20 @@ const Personnages = (props) => {
         `https://marvel-app-backend-dm.herokuapp.com/characters?limit=${limit}&page=${page}&name=${searchTerm}`
         // `http://localhost:4000/characters?limit=${limit}&page=${page}&name=${searchTerm}`
       );
-      console.log(response.data);
+      // console.log(response.data);
       setData(response.data);
       setIsLoading(false);
     };
     fetchData();
-  }, [page, limit, searchTerm]);
+  }, [limit, searchTerm]);
 
-  console.log(page);
+  const addToFavorites = (character) => {
+    const newFav = [...fav];
+
+    newFav.push(character);
+    console.log(character);
+    localStorage.setItem("favCharacter", JSON.stringify(fav));
+  };
 
   return isLoading ? (
     <div>En cours de chargement...</div>
@@ -116,21 +90,15 @@ const Personnages = (props) => {
                 </div>
               </Link>
               <div>
-                <img
-                  src={FavoriteButton}
+                <FontAwesomeIcon
+                  icon="star"
                   className="favorite-button"
                   data-hover="Add the character to your favorites"
-                  onClick={
-                    () =>
-                      // FavCharacter(character._id);
-                      localStorage.setItem("favCharacterId", character._id)
-                    // console.log("Ajout d'un favori ==> ", characterId);
-                    // addToLocalStorage
-                  }
+                  onClick={addToFavorites(character)}
                 />
               </div>
               <div className="name-and-favorite-button">
-                <h3 className="character-name"> {character.name} </h3>
+                <h3 className="character-name">{character.name}</h3>
               </div>
               <div className="character-description">
                 {character.description}

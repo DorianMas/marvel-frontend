@@ -433,8 +433,11 @@ a {
 
 .favorite-button {
   position: absolute;
-  top: 10%;
-  right: 10%;
+  top: 2%;
+  right: 4%;
+  color: rgb(255, 220, 25);
+  width: 30px;
+  height: 30px;
 }
 
 .favorite-button:hover {

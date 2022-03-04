@@ -18,6 +18,18 @@ import FichePersonnage from "./pages/FichePersonnage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 
+/*Import des modules Font Awesome*/
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+import {
+  faEnvelope,
+  faKey,
+  faListAlt,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faEnvelope, faKey, faListAlt, faStar);
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
