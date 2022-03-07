@@ -23,6 +23,11 @@ const Header = (props) => {
             <button>COMICS</button>
           </Link>
         </div>
+        <div className="navigation-favorites-container">
+          <Link to="/user/favorites" className="navigation-buttons">
+            <button>List of your favorites</button>
+          </Link>
+        </div>
         <div className="profile-buttons">
           {token ? (
             <button className="signout-button" onClick={() => tokenUser(null)}>

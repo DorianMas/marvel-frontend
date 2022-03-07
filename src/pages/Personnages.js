@@ -3,9 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
-
-import FavoriteButton from "../assets/favorite-svgrepo-com.svg";
 
 const Personnages = (props) => {
   const { limit } = props;
@@ -18,8 +15,6 @@ const Personnages = (props) => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [fav, setFav] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
@@ -31,14 +26,37 @@ const Personnages = (props) => {
       setIsLoading(false);
     };
     fetchData();
-  }, [limit, searchTerm]);
+  }, [page, limit, searchTerm]);
 
   const addToFavorites = (character) => {
-    const newFav = [...fav];
+    const favCharacter = localStorage.getItem("favCharacter") || null;
 
-    newFav.push(character);
-    console.log(character);
-    localStorage.setItem("favCharacter", JSON.stringify(fav));
+    const tab = [];
+
+    if (favCharacter === null) {
+      tab.push(character);
+      // console.log(tab);
+
+      const tabString = JSON.stringify(tab);
+
+      // console.log(tabString);
+
+      localStorage.setItem("favCharacter", tabString);
+    } else {
+      const tabObj = JSON.parse(favCharacter);
+      console.log("tabObj sous forme d'objet ==> ", tabObj);
+
+      const exist = tabObj.find((elem) => elem._id === character._id);
+
+      if (exist) {
+        alert("Le character est déjà ajouté dans vos favoris");
+      } else {
+        tabObj.push(character); //tabObj.push(favCharacter)
+        const tabString = JSON.stringify(tabObj);
+        localStorage.setItem("favCharacter", tabString);
+        console.log("tabString =>", tabString);
+      }
+    }
   };
 
   return isLoading ? (
@@ -79,7 +97,10 @@ const Personnages = (props) => {
           return (
             <div className="unique-character">
               <Link to={`/comics/${character._id}`}>
-                <div className="picture-character">
+                <div
+                  className="picture-character"
+                  data-hover={character.description}
+                >
                   <img
                     src={
                       character.thumbnail.path +
@@ -89,19 +110,19 @@ const Personnages = (props) => {
                   />
                 </div>
               </Link>
-              <div>
-                <FontAwesomeIcon
-                  icon="star"
-                  className="favorite-button"
-                  data-hover="Add the character to your favorites"
-                  onClick={addToFavorites(character)}
-                />
-              </div>
+
               <div className="name-and-favorite-button">
                 <h3 className="character-name">{character.name}</h3>
               </div>
-              <div className="character-description">
-                {character.description}
+              <div className="favorite-button-container">
+                <span>Add to your favorites </span>
+                <FontAwesomeIcon
+                  icon="heart"
+                  className="fav-comics-icon"
+                  onClick={() => {
+                    addToFavorites(character);
+                  }}
+                />
               </div>
             </div>
           );

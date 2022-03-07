@@ -17,6 +17,7 @@ import Comics from "./pages/Comics";
 import FichePersonnage from "./pages/FichePersonnage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Favorites from "./pages/Favorites";
 
 /*Import des modules Font Awesome*/
 
@@ -27,8 +28,10 @@ import {
   faKey,
   faListAlt,
   faStar,
+  faHeart,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faEnvelope, faKey, faListAlt, faStar);
+library.add(faEnvelope, faKey, faListAlt, faStar, faHeart, faTimesCircle);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -86,6 +89,10 @@ function App() {
         <Route
           path="/user/login"
           element={<Login tokenUser={tokenUser} token={token} />}
+        />
+        <Route
+          path="/user/favorites"
+          element={<Favorites tokenUser={tokenUser} token={token} />}
         />
       </Routes>
       <Footer />
