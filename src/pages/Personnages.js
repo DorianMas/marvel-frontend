@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Personnages = (props) => {
-  const { limit } = props;
+  const { limit, token } = props;
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,35 +28,55 @@ const Personnages = (props) => {
     fetchData();
   }, [page, limit, searchTerm]);
 
-  const addToFavorites = (character) => {
-    const favCharacter = localStorage.getItem("favCharacter") || null;
+  const addToFavorites = async (character) => {
+    // const favCharacter = localStorage.getItem("favCharacter") || null;
 
-    const tab = [];
+    console.log("token à transmettre pour vérifier l'user =>", token);
 
-    if (favCharacter === null) {
-      tab.push(character);
-      // console.log(tab);
+    console.log("character à transmettre au back ==>", character);
 
-      const tabString = JSON.stringify(tab);
+    try {
+      const response = await axios.post(
+        `https://marvel-app-backend-dm.herokuapp.com/user/add-favorites`,
+        {
+          character: character,
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
 
-      // console.log(tabString);
-
-      localStorage.setItem("favCharacter", tabString);
-    } else {
-      const tabObj = JSON.parse(favCharacter);
-      console.log("tabObj sous forme d'objet ==> ", tabObj);
-
-      const exist = tabObj.find((elem) => elem._id === character._id);
-
-      if (exist) {
-        alert("Le character est déjà ajouté dans vos favoris");
-      } else {
-        tabObj.push(character); //tabObj.push(favCharacter)
-        const tabString = JSON.stringify(tabObj);
-        localStorage.setItem("favCharacter", tabString);
-        console.log("tabString =>", tabString);
-      }
+      console.log("Données relatives à l'user =>", response.data);
+    } catch (error) {
+      console.log(error);
     }
+
+    // const tab = [];
+
+    // if (favCharacter === null) {
+    //   tab.push(character);
+    //   // console.log(tab);
+
+    //   const tabString = JSON.stringify(tab);
+
+    //   // console.log(tabString);
+
+    //   localStorage.setItem("favCharacter", tabString);
+    // } else {
+    //   const tabObj = JSON.parse(favCharacter);
+    //   console.log("tabObj sous forme d'objet ==> ", tabObj);
+
+    //   const exist = tabObj.find((elem) => elem._id === character._id);
+
+    //   if (exist) {
+    //     alert("Le character est déjà ajouté dans vos favoris");
+    //   } else {
+    //     tabObj.push(character); //tabObj.push(favCharacter)
+    //     const tabString = JSON.stringify(tabObj);
+    //     localStorage.setItem("favCharacter", tabString);
+    //     console.log("tabString =>", tabString);
+    //   }
+    // }
   };
 
   return isLoading ? (
