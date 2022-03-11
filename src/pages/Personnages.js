@@ -48,7 +48,7 @@ const Personnages = (props) => {
 
       console.log("Données relatives à l'user =>", response.data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
 
     // const tab = [];
