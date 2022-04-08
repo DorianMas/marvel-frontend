@@ -2,54 +2,54 @@ import axios from "axios";
 
 import { useState } from "react";
 
-import Cookies from "js-cookie";
-
 import { useNavigate } from "react-router-dom";
 
-/*Ajout des états pour les champs de formulaire*/
 const Login = (props) => {
   const { tokenUser } = props;
 
   const navigate = useNavigate();
 
+  /*State pour stocker l'email*/
   const [email, setEmail] = useState("");
+
+  /*State pour stocker le mot de passe*/
   const [password, setPassword] = useState("");
 
-  /*Ajout de l'état pour le message d'erreur*/
+  /*State pour les messages d'erreur*/
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Fonction pour détecter et enregistrer l'email entré dans le champ du formulaire
   const handleEmailChange = (event) => {
     const value = event.target.value;
     setEmail(value);
   };
 
+  // Fonction pour détecter et enregistrer le mot de passe entré dans le champ du formulaire
   const handlePasswordChange = (event) => {
     const value = event.target.value;
     setPassword(value);
   };
 
+  // Fonction qui envoie une requête au serveur avec le mot de passe et l'email entrés dans le formulaire
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const response = await axios.post(
-        // "http://localhost:4000/user/login",
-        "https://marvel-app-backend-dm.herokuapp.com/user/login",
+        "http://localhost:4000/user/login",
+        // "https://marvel-app-backend-dm.herokuapp.com/user/login",
         {
           email: email,
           password: password,
         }
       );
 
-      console.log(response.data);
-
+      // Si le serveur renvoie un token, on fait appel à la fonction tokenUser avec en argument le token réceptionné
       if (response.data.token) {
         tokenUser(response.data.token);
-        //redirection
+        // puis redirection vers la page d'accueil
         navigate("/");
       }
     } catch (error) {
-      console.log("Login error ===> ", error.message);
-      console.log("Catch error ===> ", error.response);
       if (error.response.status === 400 || error.response.status === 401) {
         setErrorMessage("L'e-mail ou le mot de passe associé n'existe pas");
       }
@@ -57,11 +57,9 @@ const Login = (props) => {
   };
 
   return (
-    /*   Objectaccount: {username: 'patrick'}email: "patrick@mail.com"token: "9jtcTr9Ofq1jGUqP3utr0dyKq8bxdefZ9UWjpQmHIsAAt3mf85O0nFOjvRFgjBew"_id: "6205449c1b4120001801837d"[[Prototype]]: Object
-          iption.js:50 patrick patrick@mail.com patrick false */
     <div className="signup-container">
-      <h2>Log in</h2>
-      <span>{errorMessage}</span>
+      <h2>SE CONNECTER</h2>
+      <span style={{ color: "red", fontSize: 20 }}>{errorMessage}</span>
       <form className="signup-form" onSubmit={handleSubmit}>
         <input
           placeholder="Email"
@@ -76,10 +74,12 @@ const Login = (props) => {
           onChange={handlePasswordChange}
         />
         <button type="submit" value="Submit" className="submit-button">
-          Log in
+          Connexion
         </button>
       </form>
-      <a onClick={() => navigate("/signup")}>No account yet? Create one!</a>
+      <a onClick={() => navigate("/signup")}>
+        Pas encore de compte ? Créez-en un !
+      </a>
     </div>
   );
 };

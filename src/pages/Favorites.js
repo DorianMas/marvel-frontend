@@ -1,118 +1,162 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const FavoritesPage = () => {
-  const navigate = useNavigate();
+const FavoritesPage = (props) => {
+  const { token } = props;
 
-  /*Appel des characters favoris*/
-  const favCharacter = localStorage.getItem("favCharacter") || null;
-  console.log(favCharacter);
-  const ObjFavCharacters = JSON.parse(favCharacter);
-  console.log(ObjFavCharacters);
+  /*State relatif aux données de l'utilisateur pour afficher/actualiser ses favoris*/
+  const [data, setData] = useState();
 
-  /*Appel des comics favoris*/
-  const favComic = localStorage.getItem("favComic") || null;
-  const ObjFavComics = JSON.parse(favComic);
-  console.log(ObjFavComics);
+  /*State relatif au chargement de la page*/
+  const [isLoading, setIsLoading] = useState(true);
 
-  /*Enlever un comic favoris*/
-  const removeComicToFavorites = (elem) => {
-    const favComic = localStorage.getItem("favComic") || null;
+  // Requête des données de l'utilisateur au serveur avec Axios
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          // `https://marvel-app-backend-dm.herokuapp.com/user/remove-favorites`,
+          "http://localhost:4000/user/favorites",
+          { token: token }
+        );
+        setData(response.data);
+        setIsLoading(false);
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
 
-    const tabObj = JSON.parse(favComic);
-    console.log("tabObj sous forme d'objet ==> ", tabObj);
+  //Fonction pour retirer un personnage des favoris de l'utilisateur
+  const removeCharacterToFavorites = async (character) => {
+    // console.log("token à transmettre pour vérifier l'user =>", token);
 
-    // const comicToRemove = tabObj.find((elem) => elem._id === comic._id);
+    // console.log("character à transmettre au back ==>", character);
 
-    for (let i = 0; i < tabObj.length; i++) {
-      if (tabObj[i]._id === elem._id) {
-        tabObj.splice(i, 1);
-      }
-    }
-
-    const tabString = JSON.stringify(tabObj);
-    localStorage.setItem("favComic", tabString);
-    // console.log("tabString =>", tabString);
-    navigate("/user/favorites");
+    // Requête Axios au serveur pour transmettre le personnage à retirer des favoris de l'utilisateur connecté
+    try {
+      const response = await axios.post(
+        // `https://marvel-app-backend-dm.herokuapp.com/user/remove-favorites`,
+        "http://localhost:4000/user/remove-favorites",
+        { character: character },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      setData(response.data);
+    } catch (error) {}
   };
 
-  /*Enlever un character favoris*/
-  const removeCharacterToFavorites = (elem) => {
-    const favCharacter = localStorage.getItem("favCharacter") || null;
+  //Fonction pour retirer le comic des favoris de l'utilisateur
+  const removeComicToFavorites = async (comic) => {
+    // console.log("token à transmettre pour vérifier l'user =>", token);
 
-    const tabObj = JSON.parse(favCharacter);
-    console.log("tabObj sous forme d'objet ==> ", tabObj);
+    // console.log("character à transmettre au back ==>", comic);
 
-    // const comicToRemove = tabObj.find((elem) => elem._id === comic._id);
-
-    for (let i = 0; i < tabObj.length; i++) {
-      if (tabObj[i]._id === elem._id) {
-        tabObj.splice(i, 1);
-      }
-    }
-
-    console.log(tabObj);
-
-    const tabString = JSON.stringify(tabObj);
-    localStorage.setItem("favCharacter", tabString);
-    // console.log("tabString =>", tabString);
-    navigate("/user/favorites");
+    // Requête Axios au serveur pour transmettre le comic à retirer des favoris de l'utilisateur connecté
+    try {
+      const response = await axios.post(
+        // `https://marvel-app-backend-dm.herokuapp.com/user/remove-favorites`,
+        "http://localhost:4000/user/remove-favorites",
+        { comic: comic },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      setData(response.data);
+    } catch (error) {}
   };
 
-  return (
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
     <div className="fav-container">
-      <h2>Vos Personnages favoris</h2>
-      <div className="fav-characters-container">
-        {ObjFavCharacters.map((elem) => {
-          return (
-            <div className="fav-character-card">
-              <h3 className="fav-character-name">{elem.name}</h3>
-              <Link to={`/comics/${elem._id}`}>
-                <img
-                  src={elem.thumbnail.path + "." + elem.thumbnail.extension}
-                  className="fav-character-picture"
-                />
-              </Link>
-              <div className="remove-character-container">
-                <p className="remove-character-sentence">
-                  Remove this character from your favorites
-                </p>
-                <FontAwesomeIcon
-                  icon="times-circle"
-                  className="remove-button"
-                  onClick={() => {
-                    removeCharacterToFavorites(elem);
-                  }}
-                />
-              </div>
+      {/*On vérifie avec le token si l'utilisateur est bien connecté pour afficher la page */}
+      {token === null && (
+        <div style={{ color: "white", fontFamily: "Bangers" }}>
+          You need an account to access to this page
+        </div>
+      )}
+      {/*Si l'utilisateur est bien connecté, on affiche ses favoris*/}
+      {token !== null &&
+        (data.characterFavorites.length < 1 ? (
+          <h2>You didn't save your favorite characters yet</h2>
+        ) : (
+          <>
+            <h2>Your favorite characters</h2>
+            <div className="fav-characters-container">
+              {token !== null &&
+                data.characterFavorites.map((character, index) => {
+                  return (
+                    <div className="fav-character-card" key={index}>
+                      <h3 className="fav-character-name">{character.name}</h3>
+                      <Link to={`/comics/${character._id}`}>
+                        <img
+                          src={
+                            character.thumbnail.path +
+                            "." +
+                            character.thumbnail.extension
+                          }
+                          className="fav-character-picture"
+                        />
+                      </Link>
+                      <div className="remove-character-container">
+                        <p className="remove-character-sentence">
+                          Remove from your favorites
+                        </p>
+                        <FontAwesomeIcon
+                          icon="times-circle"
+                          className="remove-button"
+                          onClick={() => {
+                            removeCharacterToFavorites(character);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
-          );
-        })}
-      </div>
-      <h2>Vos Comics favoris</h2>
-      <div className="fav-comics-container">
-        {ObjFavComics.map((elem) => {
-          return (
-            <div className="fav-comic-card">
-              <img
-                src={elem.thumbnail.path + "." + elem.thumbnail.extension}
-                className="fav-comic-picture"
-              />
-              <h3 className="fav-comic-name">{elem.title}</h3>
-              <div className="remove-comic-container">
-                <p>Remove this comic from your favorites</p>
-                <FontAwesomeIcon
-                  icon="times-circle"
-                  className="remove-button"
-                  onClick={() => {
-                    removeComicToFavorites(elem);
-                  }}
-                />
-              </div>
+          </>
+        ))}
+      {token !== null &&
+        (data.comicFavorites.length < 1 ? (
+          <h2>Vous n'avez pas de Comics favoris</h2>
+        ) : (
+          <>
+            <h2>Vos Comics favoris</h2>
+            <div className="fav-comics-container">
+              {token !== null &&
+                data.comicFavorites.map((comic, index) => {
+                  return (
+                    <div className="fav-comic-card" key={index}>
+                      <img
+                        src={
+                          comic.thumbnail.path + "." + comic.thumbnail.extension
+                        }
+                        className="fav-comic-picture"
+                      />
+                      <h3 className="fav-comic-name">{comic.title}</h3>
+                      <div className="remove-comic-container">
+                        <p>Retirer ce comic de vos favoris</p>
+                        <FontAwesomeIcon
+                          icon="times-circle"
+                          className="remove-button"
+                          onClick={() => {
+                            removeComicToFavorites(comic);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
-          );
-        })}
-      </div>
+          </>
+        ))}
     </div>
   );
 };

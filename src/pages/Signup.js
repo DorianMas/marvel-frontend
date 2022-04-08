@@ -12,16 +12,17 @@ const Signup = () => {
   // 1 : un ou plusieurs champs sont vides
   // 2 : MDP ne sont pas identiques
   // 3 : email déjà pris en BDD
-  // 4 : username déjà pris en BDD
-
   const [error, setError] = useState(0);
 
-  // Je peux faire une fonction par input qui gère le fait d'enregistrer, dans le state correspondant, le contenu de l'input (utile seulement pour ne pas surcharger le onClick de ma balise, ici il n'y aurait qu'une ligne dans mon onClick donc ce n'est pas utile)
+  //State pour réceptionner les données du serveur
+  const [data, setData] = useState();
+
+  // Fonction qui stocke l'email entré dans le champ du formulaire
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
-  // Je peux aussi faire une fonction qui gère la liaison entre tous les inputs et leurs states correspondants
+  // Fonction qui gère la liaison entre tous les inputs et leurs states correspondants
   const handleInputChange = (event, input) => {
     if (input === "email") {
       setEmail(event.target.value);
@@ -32,31 +33,33 @@ const Signup = () => {
     }
   };
 
+  // Fonction qui envoie une requête au serveur
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // Avant d'envoyer la requête, on vérifie si les tous les champs sont entrés
     if (email && password && confirmPassword) {
       setError(0);
+      // On vérifie également si les deux mots de passe entrés sont identiques
       if (password === confirmPassword) {
         try {
           const response = await axios.post(
-            "https://marvel-app-backend-dm.herokuapp.com/user/signup",
-            // "http://localhost:4000/user/signup",
+            // "https://marvel-app-backend-dm.herokuapp.com/user/signup",
+            "http://localhost:4000/user/signup",
             {
-              // email: email,
-              email,
-              password,
+              email: email,
+              password: password,
             }
           );
-          console.log(response.data);
+          setData(response.data);
         } catch (error) {
-          // console.log(error.response.data);
+          console.log(error.response.data);
           if (
-            error.response.data.error === "This email has already been used"
+            error.response.data.message === "This email already has an account"
           ) {
             setError(3);
           }
         }
-      } else {
+      } else if (confirmPassword !== password) {
         setError(2);
       }
     } else {
@@ -66,6 +69,10 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
+      {/* Si on réceptionne une réponse positive du serveur, on affiche le message de confirmation */}
+      {data && (
+        <p className="confirmation-message-form">SUBSCRIPTION CONFIRMED</p>
+      )}
       <form onSubmit={handleSubmit} className="signup-form">
         <h2>Sign up</h2>
 
@@ -92,15 +99,20 @@ const Signup = () => {
             handleInputChange(event, "confirm password");
           }}
         />
-        <input type="submit" value="Submit" className="submit-button" />
+        <button type="submit" value="Submit" className="submit-button">
+          Submit
+        </button>
+        {/* Affichage des messages d'erreur en fonction du state Error */}
         {error === 1 ? (
-          <p>Un ou plusieurs champs sont vides</p>
+          <p className="error-message-form">
+            Un ou plusieurs champs sont vides
+          </p>
         ) : error === 2 ? (
-          <p>Vos mots de passe ne sont pas identiques</p>
+          <p className="error-message-form">
+            Vos mots de passe ne sont pas identiques
+          </p>
         ) : error === 3 ? (
-          <p>Email déjà utilisé</p>
-        ) : error === 4 ? (
-          <p>Username déjà utilisé</p>
+          <p className="error-message-form">Email déjà utilisé</p>
         ) : null}
       </form>
     </div>
