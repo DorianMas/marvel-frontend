@@ -17,8 +17,8 @@ const CharacterProfile = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        // `https://marvel-app-backend-dm.herokuapp.com/comics/${characterId}`
-        `http://localhost:4000/comics/${characterId}`
+        `https://marvel-app-backend-dm.herokuapp.com/comics/${characterId}`
+        // `http://localhost:4000/comics/${characterId}`
       );
       setData(response.data);
       setIsLoading(false);

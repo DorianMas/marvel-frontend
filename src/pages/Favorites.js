@@ -17,8 +17,8 @@ const FavoritesPage = (props) => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          // `https://marvel-app-backend-dm.herokuapp.com/user/remove-favorites`,
-          "http://localhost:4000/user/favorites",
+          `https://marvel-app-backend-dm.herokuapp.com/user/favorites`,
+          // "http://localhost:4000/user/favorites",
           { token: token }
         );
         setData(response.data);
@@ -37,8 +37,8 @@ const FavoritesPage = (props) => {
     // Requête Axios au serveur pour transmettre le personnage à retirer des favoris de l'utilisateur connecté
     try {
       const response = await axios.post(
-        // `https://marvel-app-backend-dm.herokuapp.com/user/remove-favorites`,
-        "http://localhost:4000/user/remove-favorites",
+        `https://marvel-app-backend-dm.herokuapp.com/user/remove-favorites`,
+        // "http://localhost:4000/user/remove-favorites",
         { character: character },
         {
           headers: {
@@ -59,8 +59,8 @@ const FavoritesPage = (props) => {
     // Requête Axios au serveur pour transmettre le comic à retirer des favoris de l'utilisateur connecté
     try {
       const response = await axios.post(
-        // `https://marvel-app-backend-dm.herokuapp.com/user/remove-favorites`,
-        "http://localhost:4000/user/remove-favorites",
+        `https://marvel-app-backend-dm.herokuapp.com/user/remove-favorites`,
+        // "http://localhost:4000/user/remove-favorites",
         { comic: comic },
         {
           headers: {

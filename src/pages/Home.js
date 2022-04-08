@@ -13,8 +13,8 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        // `https://marvel-app-backend-dm.herokuapp.com/characters?limit=${limit}&page=${page}&name=${searchTerm}`
-        `http://localhost:4000/characters?limit=${"20"}&page=${"1"}&name=${""}`
+        `https://marvel-app-backend-dm.herokuapp.com/characters?limit=${100}&page=${1}&name=${""}`
+        // `http://localhost:4000/characters?limit=${"20"}&page=${"1"}&name=${""}`
       );
       console.log(response.data);
       setDataCharacters(response.data);
@@ -26,8 +26,8 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        // `https://marvel-app-backend-dm.herokuapp.com/comics?limit=${limit}&page=${page}&title=${searchTerm}`
-        `http://localhost:4000/comics?limit=${"20"}&page=${"1"}&title=${""}`
+        `https://marvel-app-backend-dm.herokuapp.com/comics?limit=${100}&page=${1}&title=${""}`
+        // `http://localhost:4000/comics?limit=${"20"}&page=${"1"}&title=${""}`
       );
       console.log(response.data);
       setDataComics(response.data);

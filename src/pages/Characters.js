@@ -31,8 +31,8 @@ const Characters = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        // `https://marvel-app-backend-dm.herokuapp.com/characters?limit=${limit}&page=${page}&name=${searchTerm}`
-        `http://localhost:4000/characters?limit=${limit}&page=${page}&name=${searchTerm}`
+        `https://marvel-app-backend-dm.herokuapp.com/characters?limit=${limit}&page=${page}&name=${searchTerm}`
+        // `http://localhost:4000/characters?limit=${limit}&page=${page}&name=${searchTerm}`
       );
       setData(response.data);
       setIsLoading(false);
@@ -44,7 +44,8 @@ const Characters = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.post(
-        "http://localhost:4000/user/favorites",
+        "https://marvel-app-backend-dm.herokuapp.com/user/favorites",
+        // "http://localhost:4000/user/favorites",
         { token: token }
       );
       console.log(response.data);
@@ -63,8 +64,8 @@ const Characters = (props) => {
     // Requête Axios au serveur pour transmettre le comic à ajouter dans les favoris de l'utilisateur connecté
     try {
       const response = await axios.post(
-        // `https://marvel-app-backend-dm.herokuapp.com/user/add-favorites`,
-        "http://localhost:4000/user/add-favorites",
+        `https://marvel-app-backend-dm.herokuapp.com/user/add-favorites`,
+        // "http://localhost:4000/user/add-favorites",
         { character: character },
         {
           headers: {
