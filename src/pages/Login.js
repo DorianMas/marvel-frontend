@@ -77,7 +77,7 @@ const Login = (props) => {
           Connexion
         </button>
       </form>
-      <a onClick={() => navigate("/signup")}>
+      <a onClick={() => navigate("/user/signup")}>
         Pas encore de compte ? Créez-en un !
       </a>
     </div>
