@@ -1261,6 +1261,14 @@ cursor: pointer;
   text-shadow: 1rem 1rem 4rem #808080;
 }
 
+.subscribe-section-header {
+  font-size: 4rem;
+}
+
+.subscribe-section-header {
+  margin: 0 20px;
+}
+
 
 .description-characters-section, .description-comics-section {
   display: flex;
@@ -1282,9 +1290,6 @@ cursor: pointer;
   padding: 50px;
 }
 
-.subscribe-section-header {
-  margin: 0 20px;
-}
 
 
 .profile-buttons {
