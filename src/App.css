@@ -1266,8 +1266,8 @@ cursor: pointer;
   text-shadow: 1rem 1rem 4rem #808080;
 }
 
-.subscribe-section-header h2 {
-  font-size: 2rem;
+.subscribe-section-header h1 {
+  font-size: 3rem;
 }
 
 .subscribe-section-header {
@@ -1285,7 +1285,7 @@ cursor: pointer;
 }
 
 .description-characters-section h2, .description-comics-section h2 {
-  font-size: 2rem;
+  font-size: 3rem;
 }
 
 .carousel-characters-homepage, .carousel-comics-homepage {
