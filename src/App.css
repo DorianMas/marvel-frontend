@@ -347,6 +347,8 @@ align-items: center;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 0 10px;
+
 }
 
 .homepage-comics-section h2 {
@@ -440,8 +442,10 @@ align-items: center;
 
 .description-characters-section {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
+  padding: 0 10px;
 }
 
 .homepage-characters-section h2 {
@@ -1261,7 +1265,7 @@ cursor: pointer;
   text-shadow: 1rem 1rem 4rem #808080;
 }
 
-.subscribe-section-header h1 {
+.subscribe-section-header h {
   font-size: 2rem;
 }
 
