@@ -99,7 +99,6 @@ const Characters = (props) => {
           }}
         />
       </div>
-
       <div className="pagination-buttons-container">
         <button
           onClick={() => {

@@ -44,7 +44,7 @@ const Home = () => {
             <p>All your favorite heroes in one click</p>
           </div>
           <div className="button-container-characters-homepage">
-            <Link to="/comics">
+            <Link to="/characters">
               <button>Show More</button>
             </Link>
           </div>
@@ -89,7 +89,7 @@ const Home = () => {
             <p>Find all the Marvel comics since the 70's</p>
           </div>
           <div className="button-container-comics-homepage">
-            <Link to="/characters">
+            <Link to="/comics">
               <button>Show More</button>
             </Link>
           </div>

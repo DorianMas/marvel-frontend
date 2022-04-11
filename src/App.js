@@ -29,6 +29,7 @@ import {
   faTimesCircle,
   faCheck,
   faMagnifyingGlass,
+  faAlignJustify,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(
   faEnvelope,
@@ -38,7 +39,8 @@ library.add(
   faHeart,
   faTimesCircle,
   faCheck,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faAlignJustify
 );
 
 function App() {
