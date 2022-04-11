@@ -1261,7 +1261,7 @@ cursor: pointer;
   text-shadow: 1rem 1rem 4rem #808080;
 }
 
-.subscribe-section-header {
+.subscribe-section-header h2 {
   font-size: 4rem;
 }
 
