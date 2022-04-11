@@ -1329,7 +1329,9 @@ cursor: pointer;
 /*Pagination*/
 .pagination-buttons-container {
 font-size: 1rem;
+margin-left: -50px;
 }
+
 
 /*Searchbar*/
 .searchbar-container {
