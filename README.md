@@ -31,3 +31,12 @@ Here is the frontend repo of the Fullstack Marvel project
 Hosted on Netlify ➡️ https://marvel-encyclopedia-dm.netlify.app/
 
 Backend hosted on **Heroku**
+
+
+## Available Scripts
+
+In the project directory, you can run: ### `npm start`
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+
