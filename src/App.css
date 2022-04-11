@@ -1267,7 +1267,7 @@ cursor: pointer;
 }
 
 .subscribe-section-header h1 {
-  font-size: 4rem;
+  font-size: 5rem;
 }
 
 .subscribe-section-header {
@@ -1333,7 +1333,7 @@ font-size: 1rem;
 
 /*Searchbar*/
 .searchbar-container {
-  margin: 0 100px;
+  margin: 0 50px;
 }
 
 .characters-results-container, .comics-page-container {
