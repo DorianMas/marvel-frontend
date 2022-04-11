@@ -1267,7 +1267,7 @@ cursor: pointer;
 }
 
 .subscribe-section-header h2 {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .subscribe-section-header {
@@ -1283,6 +1283,11 @@ cursor: pointer;
   text-align: center;
   gap: 20px;
 }
+
+.description-characters-section h2, .description-comics-section h2 {
+  font-size: 2rem;
+}
+
 .carousel-characters-homepage, .carousel-comics-homepage {
   display: none;
 }
@@ -1320,6 +1325,12 @@ cursor: pointer;
   width: 200px;
   font-size: 1rem;
 }
+
+/*Pagination*/
+.pagination-buttons-container {
+font-size: 1rem;
+}
+
 /*Modal rules*/
 
 .options-connection-modal {
