@@ -564,7 +564,7 @@ top: 39%;
 }
 
 .pagination-buttons-container {
-  padding: 10px 10px;
+  padding: 10px;
   z-index: 2;
   position: fixed;
   bottom: 2px;
@@ -1329,6 +1329,15 @@ cursor: pointer;
 /*Pagination*/
 .pagination-buttons-container {
 font-size: 1rem;
+}
+
+/*Searchbar*/
+.searchbar-container {
+  margin: 0 100px;
+}
+
+.characters-results-container, .comics-page-container {
+  margin: 0 100px;
 }
 
 /*Modal rules*/
