@@ -178,7 +178,7 @@ const Header = (props) => {
       ) : (
         <div
           className="header"
-          style={{ height: openResponsiveMenu && "100%" }}
+          style={{ height: openResponsiveMenu && "100vh" }}
         >
           {/*Header sur les autres pages du site web*/}
           {openResponsiveMenu === false && (
